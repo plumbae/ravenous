@@ -6,15 +6,17 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col';
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 
-function SearchBar( props ) {
+function SearchBar({ searchYelp }) {
 
-  // Filter state setting
-  const [filter, setFilter] = useState('best-match');
+  // State settings
+  const [term, setTerm] = useState("");
+  const [location, setLocation] = useState("");
+  const [sortBy, setSortBy] = useState('best_match');
 
   // Event handler for sorting click
   const clickHandler = (event) => {
-    const filter = event.currentTarget.getAttribute('id');
-    setFilter(filter);
+    const sortBy = event.currentTarget.getAttribute('id');
+    setSortBy(sortBy);
   };
 
   // isHovered state settings
@@ -33,27 +35,22 @@ function SearchBar( props ) {
     setHoveredElementId('');
   };
 
-  // Form data state setting
-  const [formData, setFormData] = useState({
-    term: '',
-    location: '',
-  });
-
   // Event handler for submission
   const handleSubmit = (event) => {
     // Prevent the default submission behaviour
     event.preventDefault();
-    // Pass input values to props
-    props.onSubmit(formData, filter);
+    // Pass input values
+    searchYelp(term, location, sortBy);
   };
 
-  // Event handler for form input change
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+  // Event handler for term input change
+  const handleTermChange = (event) => {
+    setTerm(event.target.value);
+  };
+  
+  // Event handler for location input change
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
   };
 
   return (
@@ -65,12 +62,12 @@ function SearchBar( props ) {
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             data-sorting="name"
-            id="best-match"
+            id="best_match"
             className='sort-by mb-4 mt-5 p-0'
             md="2"
             style={{
-              color: (isHovered && hoveredElementId === 'best-match') || filter === 'best-match' ? '#ec1' : 'white',
-              borderBottomColor: (isHovered && hoveredElementId === 'best-match') || filter === 'best-match' ? '#ec1' : 'white'
+              color: (isHovered && hoveredElementId === 'best_match') || sortBy === 'best_match' ? '#ec1' : 'white',
+              borderBottomColor: (isHovered && hoveredElementId === 'best_match') || sortBy === 'best_match' ? '#ec1' : 'white'
             }}
             >
             <p className='mb-0'>Best</p>
@@ -81,12 +78,12 @@ function SearchBar( props ) {
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             data-sorting="rating"
-            id="highest-rated"
+            id="rating"
             className='sort-by mb-4 mt-5 p-0'
             md="2"
             style={{
-              color: (isHovered && hoveredElementId === 'highest-rated') || filter === 'highest-rated' ? '#ec1' : 'white',
-              borderBottomColor: (isHovered && hoveredElementId === 'highest-rated') || filter === 'highest-rated' ? '#ec1' : 'white'
+              color: (isHovered && hoveredElementId === 'rating') || sortBy === 'rating' ? '#ec1' : 'white',
+              borderBottomColor: (isHovered && hoveredElementId === 'rating') || sortBy === 'rating' ? '#ec1' : 'white'
             }}
             >
             <p className='mb-0'>Highest</p>
@@ -97,12 +94,12 @@ function SearchBar( props ) {
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             data-sorting="reviewCount"
-            id="most-reviewed"
+            id="review_count"
             className='sort-by mb-4 mt-5 p-0'
             md="2"
             style={{
-              color: (isHovered && hoveredElementId === 'most-reviewed') || filter === 'most-reviewed' ? '#ec1' : 'white',
-              borderBottomColor: (isHovered && hoveredElementId === 'most-reviewed') || filter === 'most-reviewed' ? '#ec1' : 'white'
+              color: (isHovered && hoveredElementId === 'review_count') || sortBy === 'review_count' ? '#ec1' : 'white',
+              borderBottomColor: (isHovered && hoveredElementId === 'review_count') || sortBy === 'review_count' ? '#ec1' : 'white'
             }}
             >
             <p className='mb-0'>Most</p>
@@ -116,8 +113,8 @@ function SearchBar( props ) {
             type='text'
             controlId='term'
             name='term'
-            value={formData.term}
-            onChange={handleInputChange}
+            value={term}
+            onChange={handleTermChange}
             placeholder='Search business'
             required
             />
@@ -126,8 +123,8 @@ function SearchBar( props ) {
             type='text'
             controlId='location'
             name='location'
-            value={formData.location}
-            onChange={handleInputChange}
+            value={location}
+            onChange={handleLocationChange}
             placeholder='Where?'
             required
             />

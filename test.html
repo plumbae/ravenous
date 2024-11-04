@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Fetch json example</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>Fetch json example</h1>
+    <script>
+      const url = 'https://api.yelp.com/v3/businesses/search?location=London&term=restaurants&sort_by=best_match&limit=3';
+      const apiKey = 'UZrRXk1RmhU6x9tRzzVn1enFr7mk_uTvKvqKX2JYaigFpdw8C5tuhV_5bR1u4_gAVtFPrfe78L13CcaKujRsWmP9DYIWtJxQN6BKG7LcjRoRjDO1v3vh91pKztAnZ3Yx';
+
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then((data) => {
+        console.log(data);
+        const name = data.businesses[0].categories[0].alias;
+        console.log(`Category: ${name}`);
+      })
+      .catch(error => console.log('Error: ', error));
+    </script>
+  </body>
+</html>
