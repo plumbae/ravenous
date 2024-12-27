@@ -18,7 +18,7 @@
 }
 
 .App-search-bar {
-  height: 25rem;
+  height: 20rem;
   background-image: url('kate-laine-f7MzLviMjyw-unsplash.jpg');
   background-size: cover;
   margin-bottom: 2rem;
@@ -45,7 +45,11 @@
 }
 
 .adress, .city, .zipcode {
-  font-size: 16px;
+  font-size: 14px;
+}
+
+.category, .rating, .reviewcount {
+  font-size: 14px;
 }
 
 .category {

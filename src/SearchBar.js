@@ -53,6 +53,10 @@ function SearchBar({ searchYelp }) {
     setLocation(event.target.value);
   };
 
+  // Event handler for form field click
+  const clickHandlerFormfield = (event) => {
+    event.target.select()};
+
   return (
     <Container className='m-0'>
       <div className='line'>
@@ -114,6 +118,7 @@ function SearchBar({ searchYelp }) {
             controlId='term'
             name='term'
             value={term}
+            onClick={clickHandlerFormfield}
             onChange={handleTermChange}
             placeholder='Search business'
             required
@@ -124,6 +129,7 @@ function SearchBar({ searchYelp }) {
             controlId='location'
             name='location'
             value={location}
+            onClick={clickHandlerFormfield}
             onChange={handleLocationChange}
             placeholder='Where?'
             required

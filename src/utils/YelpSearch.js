@@ -4,7 +4,7 @@ const limit = 10;
 const YelpSearch = {
   search(term, location, sortBy) {
     //console.log(term, location, sortBy);
-    const url = `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&limit=${limit}`;
+    const url = `https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&sort_by=${sortBy}&limit=${limit}`;
     return fetch(url, {
       method: 'GET',
       headers: {
